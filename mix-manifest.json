@@ -1,0 +1,9 @@
+{
+    "/public/js/background.js": "/public/js/background.js",
+    "/public/js/popup.js": "/public/js/popup.js",
+    "/public/css/popup.css": "/public/css/popup.css",
+    "/public/images/icon-128x128.png": "/public/images/icon-128x128.png",
+    "/public/images/icon-16x16.png": "/public/images/icon-16x16.png",
+    "/public/images/icon-48x48-off.png": "/public/images/icon-48x48-off.png",
+    "/public/images/icon-48x48.png": "/public/images/icon-48x48.png"
+}
