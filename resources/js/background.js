@@ -1,9 +1,8 @@
-
-chrome.runtime.onInstalled.addListener(()=>{
+chrome.runtime.onInstalled.addListener(() => {
     chrome.storage.sync.set({
-        toggleSitesActive:false,
-        toggleSitesList : 'example.com'
-    },() =>{});
+        toggleSitesActive: false,
+        toggleSitesList: 'example.com'
+    }, () => {});
 });
 
 // set up the initial chrome storage values
@@ -14,9 +13,9 @@ let toggleSitesList = 'example.com';
 // replace the initial values above with ones from synced storage
 
 chrome.storage.sync.get([
-'toggleSitesActive',
-'toggleSitesList',
-],(result)=>{
+    'toggleSitesActive',
+    'toggleSitesList',
+], (result) => {
     toggleSitesActive = result.toggleSitesActive;
     toggleSitesList = result.toggleSitesList;
 });
@@ -24,27 +23,24 @@ chrome.storage.sync.get([
 //on each site request , block it if is's in toggleSitesList
 
 chrome.webRequest.onBeforeRequest.addListener(
-    (details) => 
-    {
+    (details) => {
 
-    // if the toggle is inactive, don't blcok anything
-    if(!toggleSitesActive){
-        return {cancel: false};
-    }
+        // if the toggle is inactive, don't blcok anything
+        if (!toggleSitesActive) {
+            return { cancel: false };
+        }
 
-    // determine if the url is in toggleSitesList
-    let cancel = toggleSitesList.split(/\n/)
-    .some(site => {
-        let url  =  new URL(details.url);
-        return  Boolean(url.hostname.indexOf(site) !== -1);
-    });
+        // determine if the url is in toggleSitesList
+        let cancel = toggleSitesList.split(/\n/)
+            .some(site => {
+                let url = new URL(details.url);
+                return Boolean(url.hostname.indexOf(site) !== -1);
+            });
 
-    return {cancel: cancel};
-    },
-    {
-        urls : ["<all_urls>"]
-    },
-    [
+        return { cancel: cancel };
+    }, {
+        urls: ["<all_urls>"]
+    }, [
         "blocking"
     ]
 );
